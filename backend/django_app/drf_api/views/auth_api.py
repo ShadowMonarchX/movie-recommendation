@@ -1,4 +1,4 @@
-from drf_api.models.user_models import User
+from .models.user_models import User
 from drf_api.cookies import *
 from django.utils.timezone import now, make_aware
 from django.contrib.auth import get_user_model
