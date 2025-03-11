@@ -3,19 +3,11 @@ from .models.all_content import *
 
 @admin.register(Content)
 class ContentAdmin(admin.ModelAdmin):
-    list_display = ('title', 'types',  'rating')
-    list_filter = ('types', 'rating')
+    list_display = ('title','rating')
+    list_filter = ('rating',)
     search_fields = ('title', 'description')
-    ordering = ('title', 'rating', 'types')
+    ordering = ('title', 'rating')
     model = Content
-
-@admin.register(Episode)
-class EpisodeAdmin(admin.ModelAdmin):
-    list_display = ('title', 'content', 'season', 'episode_number', 'release_at', 'ott_release_at')
-    list_filter = ('content', 'season')
-    search_fields = ('title', 'description')
-    ordering = ('title', 'content', 'episode_number')
-    model = Episode
 
 @admin.register(Language)
 class LanguageAdmin(admin.ModelAdmin):

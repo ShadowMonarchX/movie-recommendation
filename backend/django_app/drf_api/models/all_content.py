@@ -21,9 +21,7 @@ class Content(models.Model):
         return self.title
 
     class Meta:
-        indexes = [
-            models.Index(fields=['types']),
-        ]
+        verbose_name_plural = "contents"
 
 
 class Genre(models.Model):

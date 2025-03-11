@@ -40,16 +40,6 @@ class TopMovieApiView(APIView):
         return None
 
 
-class TopShowApiView(APIView):
-    def get(self, request, *args, **kwargs):
-        return None
-
-
-class TopWebSeriesApiView(APIView):
-    def get(self, request, *args, **kwargs):
-        return None
-
-
 class TopActionApiView(APIView):
     def get(self, request, *args, **kwargs):
         return None
@@ -60,8 +50,10 @@ class TopHorrorApiView(APIView):
         return None
 
 
-
 class TopLovesApiView(APIView):
     def get(self, request, *args, **kwargs):
         return None
 
+class TopAnimeApiView(APIView):
+    def get(self, request, *args, **kwargs):
+        return None
