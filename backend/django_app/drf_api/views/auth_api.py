@@ -1,14 +1,10 @@
-from .models.user_models import User
-from drf_api.cookies import *
+from ..cookies import *
 from django.utils.timezone import now, make_aware
-from django.contrib.auth import get_user_model
-User = get_user_model()
-
-from drf_api.serializers.auth_serializers import *
-from drf_api.auth_requirement.validation import *
-from drf_api.auth_requirement.utils import send_generated_otp_to_email
-from drf_api.auth_requirement.social import register_social_user
-from drf_api.auth_requirement.permissions import  IsOwnerOrReadOnly
+from ..models.user_models import *
+from ..serializers.auth_serializers import *
+from ..auth_requirement.validation import *
+from ..auth_requirement.utils import send_generated_otp_to_email
+from ..auth_requirement.social import register_social_user
 
 from django.utils.http import urlsafe_base64_decode
 from django.http import JsonResponse
@@ -22,10 +18,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny , IsAuthenticated
-from rest_framework_simplejwt.tokens import RefreshToken
 from django_ratelimit.decorators import ratelimit
 
-
+#
 
 
 from datetime import datetime
@@ -34,13 +29,14 @@ from multiprocessing import context
 class RegisterView(APIView):
     permission_classes = [AllowAny]
 
-    def post(self, request):
+
+    def post(self,request):
         validation_error = RegisterValidation(request)
-        
+
         if validation_error:
-            return validation_error 
+            return validation_error
         serializer = UserRegisterSerializer(data=request.data)
-        
+
         if not serializer.is_valid():
             return Response({
                 "status": "failure",
@@ -137,30 +133,30 @@ class VerifyUserEmail(APIView):
         request.session.save()
 
         # Generate JWT tokens
-        # refresh = RefreshToken.for_user(user)
+        refresh = RefreshToken.for_user(user)
 
-        # return Response({
-        #     "status": "success",
-        #     "message": "Email verified successfully.",
-        #     "data": {
-        #         "email": user.email,
-        #         "access_token": str(refresh.access_token),
-        #         "refresh_token": str(refresh)
-        #     }
-        # }, status=status.HTTP_200_OK)
-        response = JsonResponse({
+        return Response({
             "status": "success",
             "message": "Email verified successfully.",
             "data": {
                 "email": user.email,
-            },
-           
-        })
-
-        response = set_auth_cookie(response, user,request)
-        print(response)
-
-        return response
+                "access_token": str(refresh.access_token),
+                "refresh_token": str(refresh)
+            }
+        }, status=status.HTTP_200_OK)
+        # response = JsonResponse({
+        #     "status": "success",
+        #     "message": "Email verified successfully.",
+        #     "data": {
+        #         "email": user.email,
+        #     },
+        #
+        # })
+        #
+        # response = set_auth_cookie(response, user,request)
+        # print(response)
+        #
+        # return response
 
 
 class ResendOTPView(APIView):

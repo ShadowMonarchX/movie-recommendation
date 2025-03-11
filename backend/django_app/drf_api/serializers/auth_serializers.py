@@ -1,6 +1,6 @@
 # from accounts.social import Netflix
-from drf_api.models.user_models import *
-from drf_api.auth_requirement.utils import send_normal_email 
+from ..models.user_models import *
+from ..auth_requirement.utils import *
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
