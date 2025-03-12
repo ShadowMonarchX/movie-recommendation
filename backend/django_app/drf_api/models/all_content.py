@@ -40,8 +40,6 @@ class ContentGenre(models.Model):
     content = models.ForeignKey(Content, on_delete=models.CASCADE, related_name='genres')
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='contents')
     created_at = models.DateTimeField(auto_now_add=True)
-    is_favorite = models.BooleanField(default=False)
-    is_liked = models.BooleanField(default=False)
     updated_at = models.DateTimeField(auto_now=True)
 
 
