@@ -31,7 +31,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     id = models.BigAutoField(primary_key=True, editable=False)
     email = models.EmailField(max_length=255, verbose_name=_("Email Address"), unique=True)
     username = models.CharField(max_length=30, unique=True)
-    tc = models.BooleanField()
+    tc = models.BooleanField(default=True)
 
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

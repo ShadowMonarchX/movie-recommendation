@@ -1,5 +1,6 @@
 from django.urls import path
-from drf_api.views.auth_api import *
+from ..views.auth_api import *
+from  ..views.homecontent_api import *
 from unicodedata import name
 
 urlpatterns = [
@@ -11,5 +12,6 @@ urlpatterns = [
     path('password-reset-confirm/<uidb64>/<token>/', PasswordResetConfirm.as_view(), name='reset-password-confirm'),
     path('set-new-password/', SetNewPasswordView.as_view(), name='set-new-password'),
     path('logout/', LogoutApiView.as_view(), name='logout'),
+    path('contents/', ContentListAPIView.as_view(), name='content-list'),  # Example URL
     # path("netflix-signin/", NetflixOauthSignInView.as_view(), name="netflix-signin")
     ]
