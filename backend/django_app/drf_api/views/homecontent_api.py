@@ -3,26 +3,15 @@ from rest_framework.response import Response
 from ..models.all_content import Content
 from ..serializers.content_serializers import ContentSerializer
 
-
-class TopAPIView(APIView):
+class ContentListAPIView(APIView):
     def get(self, request, *args, **kwargs):
-        content_type = request.query_params.get('type', '0')
-
-        try:
-            content_type = int(content_type)
-        except ValueError:
-            return Response({"error": "Invalid content type parameter"}, status=400)
-
-
-        content = Content.objects.filter(types=content_type).order_by('-rating')[:5]
-
-
-        serializer = ContentSerializer(content, many=True)
-        return Response(serializer.data)
+        contents = Content.objects.all()
+        serializer = ContentSerializer(contents, many=True)
+        return Response(serializer.data, status=200)
 
 
 class TopRecommendationCountApiView(APIView):
-    def get(self, request, *args, **kwargs):
+    def get(self):
         return None
 
 
